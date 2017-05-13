@@ -1,0 +1,109 @@
+$hover-blue: #42BEDB;
+$hover-blue-dark: #4D7B9F;
+
+@mixin linear-gradient($fromColor, $toColor, $dir: top) {
+    $ie-from-color: ie-hex-str($fromColor);
+    $ie-to-color: ie-hex-str($toColor);
+    background-image: -webkit-linear-gradient($dir, $fromColor, $toColor); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient($dir, $fromColor, $toColor); /* FF3.6 */
+    background-image:     -ms-linear-gradient($dir, $fromColor, $toColor); /* IE10 */
+    background-image:      -o-linear-gradient($dir, $fromColor, $toColor); /* Opera 11.10+ */
+    background-image:         linear-gradient($dir, $fromColor, $toColor);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#{$ie-from-color}', EndColorStr='#{$ie-to-color}');
+}
+
+@mixin vertical-align {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+@mixin opacity($value){
+    $ie-value: $value * 100;
+    opacity: $value;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$ie-value+")";
+    filter: alpha(opacity=$ie-value);
+}
+
+@mixin truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// ADDS A BROWSER PREFIX TO THE PROPERTY
+@mixin css3-prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+   -khtml-#{$property}: #{$value};
+     -moz-#{$property}: #{$value};
+      -ms-#{$property}: #{$value};
+       -o-#{$property}: #{$value};
+          #{$property}: #{$value};
+}
+
+// BORDER RADIUS
+@mixin border-radius($radius: 5px) {
+  @include css3-prefix('border-radius', $radius);
+}
+
+// USER SELECT
+@mixin user-select($value: 'all') {
+  @include css3-prefix('user-select', $value);
+}
+
+// BOX SHADOW
+@mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
+  @if ($inset != "") {
+    @include css3-prefix('box-shadow', $inset $x $y $blur $color);
+  } @else {
+    @include css3-prefix('box-shadow', $x $y $blur $color);
+  }
+}
+
+@mixin flexbox {
+  display: -webkit-box;           /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;              /* OLD - Firefox 19- (doesn't work very well) */
+  display: -ms-flexbox;           /* TWEENER - IE 10 */
+  display: -webkit-flex;          /* NEW - Chrome */
+  display: flex;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+@mixin flexbox-important {
+  display: -webkit-box !important;
+  display: -moz-box !important;
+  display: -ms-flexbox !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+}
+
+@mixin ordinal-group($value: 1) {
+  -moz-box-ordinal-group: $value;      /* old - firefox 39- */
+  -ms-flex-order: $value;              /* tweener - ie 30 */
+  -webkit-order: $value;               /* new - chrome */
+  order: $value;                       /* NEW, Spec - Opera 33.3, Firefox 30+ */
+}
+
+@mixin flex($value: 1) {
+    -webkit-box-flex: 1;            /* OLD - iOS 6-, Safari 1.1-6 */
+    -moz-box-flex: 1;               /* OLD - Firefox 19- */
+    -webkit-flex: 1;                /* Chrome */
+    -ms-flex: 1;                    /* IE 10 */
+    flex: 1;                        /* NEW, Spec - Opera 11.1, Firefox 10+ */
+}
+
+@mixin transform($transforms) {
+    -moz-transform: $transforms;
+    -o-transform: $transforms;
+    -ms-transform: $transforms;
+    -webkit-transform: $transforms;
+    transform: $transforms;
+}
+
+@mixin transition($transitions) {
+    -moz-transition: $transitions;
+    -o-transition: $transitions;
+    -webkit-transition: $transitions;
+    transition: $transitions;
+}

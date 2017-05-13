@@ -1,0 +1,359 @@
+@import "./other-mixins";
+
+$p: '.vhs-plugin-controls'; //prefix
+
+#{$p} {
+    @include user-select('none');
+    z-index: 999;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    font-size: 1.3em;
+    transition: bottom 0.3s, opacity 0.3s;
+    line-height: normal;
+
+    display: none;
+    align-items: center;
+
+    color: white;
+    background-color: rgba(0,0,0,0.8);
+
+    [class^=vhs-icon-], [class*=" vhs-icon-"],
+    [class^=vhs-icon-]:before, [class*=" vhs-icon-"]:before {
+        width: auto;
+        font-size: 1em;
+        font-family: 'vhs';
+    }
+
+    &.vhs-controls-enabled {
+        @include flexbox-important();
+    }
+
+    &.vhs-controls-no-overlay {
+        background-color: transparent;
+        background-image: linear-gradient(transparent, rgba(0,0,0,0.7));
+        background-repeat: no-repeat;
+    }
+
+    &.vhs-controls-hidden {
+        opacity: 0;
+        transition: opacity .4s ease-in-out;
+        -moz-transition: opacity .4s ease-in-out;
+        -webkit-transition: opacity .4s ease-in-out;
+    }
+
+    &.vhs-controls-active {
+        opacity: 1;
+        transition: opacity .4s ease-in-out;
+        -moz-transition: opacity .4s ease-in-out;
+        -webkit-transition: opacity .4s ease-in-out;
+    }
+}
+
+#{$p}-message-container {
+    display: none;
+
+    #{$p}-ad-label,
+    #{$p}-live-label {
+        display: none;
+    }
+
+    #{$p}-live-circle {
+        float: left;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        display: inline;
+        background: red;
+        margin: 3px 7px 0px 0px;
+    }
+}
+
+#{$p}-play-container,
+#{$p}-progress,
+#{$p}-options-container {
+    display: inline-block;
+    pointer-events: auto;
+    -webkit-align-self: center;
+}
+
+// ***********************************
+// Play/Pause, Seek, Replay, and Error
+// ***********************************
+
+#{$p}-play-container {
+    @include ordinal-group(1);
+
+    height: 0;
+    text-align: center;
+    line-height: 1;
+    cursor: pointer;
+    width: 1.3em;
+
+    #{$p}-play {
+        position: relative;
+        bottom: 0.55em;
+        font-size: 1.3em;
+
+        &.vhs-icon-play:before { content: '\e81c'; }
+        &.vhs-icon-pause:before { content: '\e81d'; }
+    }
+}
+
+// ********************************
+// Error and Advertisement Messages
+// ********************************
+
+#{$p}-message-container {
+    @include flex(1);
+    @include ordinal-group(2);
+
+    font-size: 13px;
+    font-family: 'franklin', 'nyt-franklin', sans-serif;
+    color: #B5B5B5;
+    display: none;
+    letter-spacing: .3px;
+    font-weight: bold;
+
+    &.vhs-message-container-enabled {
+        @include flexbox();
+    }
+}
+
+.nytd-player-ad-controls #{$p}-message-container {
+    display: block;
+
+    #{$p}-ad-label {
+        display: block;
+    }
+}
+
+// ********************************************************
+// Current Time, Progress Bar, Buffer, Duration, and Marker
+// ********************************************************
+
+#{$p}-progress {
+    @include flex(1);
+    @include ordinal-group(3);
+    @include flexbox();
+
+    align-items: center;
+    $timeline-padding: 2px;
+    $timeline-border-radius: 100px;
+    cursor: pointer;
+
+    &.vhs-progress-hidden {
+        display: none;
+    }
+
+    #{$p}-current-time,
+    #{$p}-duration {
+        font: normal bold 10px/1 'franklin', 'nyt-franklin', sans-serif;
+        cursor: default;
+    }
+
+    #{$p}-progress-timeline {
+        position: relative;
+        @include flex(1);
+        align-items: center;
+        margin-right: 15px;
+        display: block;
+        box-sizing: border-box;
+        background-color: #000;
+        border-radius: $timeline-border-radius;
+        padding: $timeline-padding;
+    }
+
+    #{$p}-progress-buffer-and-time {
+        position: absolute;
+        top: $timeline-padding;
+        left: $timeline-padding;
+        right: $timeline-padding;
+        bottom: $timeline-padding;
+    }
+
+    #{$p}-progress-buffer,
+    #{$p}-progress-time {
+        display: block;
+        height: 100%;
+        position: absolute;
+        background-color: rgba(255,255,255,0.4);
+        border-radius: $timeline-border-radius;
+    }
+
+    #{$p}-progress-time {
+        background-color: rgba(255,255,255,0.7);
+    }
+
+    #{$p}-progress-marker {
+        position: absolute;
+        font-size: 0.8em;
+        top: 50%;
+        text-shadow: 0 0 7px rgba(0, 0, 0, .6);
+        @include transform(translate(-50%, -50%));
+
+        &.vhs-icon-circle:before { content: '\e81e'; }
+
+        &:before {
+            transition: transform 0.3s;
+        }
+
+        &:after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            left: 22px;
+            top: 10px;
+            opacity: 0;
+            position: absolute;
+            border: 2px solid rgba(255,255,255,0.5);
+            transform: translate(-26px,-13px);
+            border-radius: 50%;
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+    }
+}
+
+// ************************************
+// Captions, HD, Volume, and Fullscreen
+// ************************************
+
+#{$p}-options-container {
+    @include flexbox();
+    @include ordinal-group(4);
+
+    #{$p}-option {
+        font-family: 'vhs';
+        display: inline-block;
+        width: auto;
+        text-align: center;
+        cursor: pointer;
+        color: rgba(255,255,255,0.8);
+
+        &:hover {
+            color: white;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &.vhs-icon-resize-full:before { content: '\e809'; }
+        &.vhs-icon-resize-default:before { content: '\e812'; }
+        &.vhs-icon-reload:before { content: '\e804'; }
+        &.vhs-icon-gear:before { content: '\e816'; }
+
+        &.vhs-icon-hd-off:before {
+            content: '\e808';
+            color: rgba(255, 255, 255, .3);
+        }
+
+        &.vhs-icon-hd-off:hover:before {
+            color: rgba(255, 255, 255, .5);
+        }
+
+        &.vhs-icon-hd-on:before {
+          content: '\e808';
+          color: rgba(255, 255, 255, 1);
+        }
+
+        &.vhs-icon-hd-disabled:before {
+          content: '\e808';
+          color: #999;
+        }
+
+        &#{$p}-volume-container {
+            position: relative;
+
+            #{$p}-volume {
+                font-family: 'vhs';
+
+                &.vhs-icon-volume-off:before { content: '\e811'; }
+                &.vhs-icon-volume-on:before { content: '\e80a'; }
+                &.vhs-icon-volume-half:before { content: '\e813'; }
+            }
+
+            #{$p}-volume-slider-container {
+                padding-top: 150%;
+                padding-left: 105%;
+                width: 135px;
+                position: absolute;
+                top: 140%;
+                left: -23%;
+                transform: rotate(270deg);
+                transform-origin: top left;
+                background-color: rgba(0,0,0,.27);
+                border-radius: 2px;
+                z-index: -1;
+                transition: visibility .3s, opacity .3s;
+                backface-visibility: hidden;
+
+                visibility: hidden;
+                opacity: 0;
+
+                $slider-length: 65%;
+
+                &.vhs-plugin-controls-volume-slider-show {
+                    visibility: visible;
+                    opacity: 1;
+                }
+
+                #{$p}-volume-slider-track {
+                    height: 3px;
+                    width: $slider-length;
+
+                    border: 1px solid white;
+                    border-radius: 2px;
+                    position: absolute;
+
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 26px;
+                    margin: auto;
+
+
+                    #{$p}-volume-slider-fill {
+                        width: 100%;
+                        height: 100%;
+
+                        position: absolute;
+                        background: white;
+
+                        top: 0;
+                        left: 0;
+                    }
+                }
+
+                input[type="range"] {
+                    height: 100%;
+                    width: $slider-length;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 26px;
+                    margin: auto;
+                    opacity: 0;
+                    cursor: pointer;
+                    -webkit-appearance: none;
+
+                    // make the slider knob thinner so that volume can be adjusted more precisely
+                    &::-webkit-slider-thumb {
+                        -webkit-appearance: none;
+                        height: 15px;
+                        width: 1px;
+                        background-color: black;
+                    }
+
+                    &::-ms-tooltip {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
