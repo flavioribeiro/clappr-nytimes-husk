@@ -29,7 +29,6 @@ export default class NYTSpinner extends UIContainerPlugin {
   }
 
   hide() {
-    return
     if (this.showTimeout !== null) {
       clearTimeout(this.showTimeout)
       this.showTimeout = null
