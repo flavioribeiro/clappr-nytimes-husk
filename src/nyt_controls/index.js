@@ -10,15 +10,12 @@ export default class NYTControls extends UICorePlugin {
   constructor(core) {
     super(core.options)
     this.core = core
-    //    this.listenTo(this.core.mediaControl, Events.MEDIACONTROL_RENDERED, this.renderControls)
     this.renderControls()
   }
 
   renderControls() {
-    console.log("render called")
-    this.$el.html(this.template())
     const style = Styler.getStyleFor(controlsStyle)
-    this.core.$el.append(this.$el[0])
+    this.core.$el.append(controlsHTML)
     this.core.$el.append(style[0])
     return this
   }

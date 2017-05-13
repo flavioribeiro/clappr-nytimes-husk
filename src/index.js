@@ -11,5 +11,3 @@ let player = new Clappr.Player({
   playInLine: true,
   plugins: {container:[NYTSpinner], core: [NYTControls]}
 })
-
-window.Clappr = Clappr

@@ -31,9 +31,8 @@ module.exports = {
     rules: [
       {test: /\.js$/, loader: 'babel-loader', include: [path.resolve(__dirname, 'src')], options: { presets: ['es2015']}},
       {test: /\.scss$/, loaders: ['css-loader', 'sass-loader'], include: path.resolve(__dirname, 'src')},
-      {test: /\.(png|woff|eot|ttf|swf|cur)/, loader: 'url-loader?limit=1'},
-      {test: /\.svg/, loader: 'svg-inline-loader'},
-      {test: /\.html/, loader: 'html-loader', options: { minimize: true }}
+      {test: /\.html/, loader: 'html-loader', options: { minimize: true }},
+      {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'}
     ],
   },
   plugins: plugins,
