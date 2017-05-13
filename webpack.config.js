@@ -19,7 +19,6 @@ if (process.env.npm_lifecycle_event === 'dist') {
 plugins.push(new NotifierPlugin({
   title: outputFile,
   alwaysNotify: true,
-  // contentImage: path.resolve(__dirname, 'path/to/image.png')
 }))
 
 module.exports = {
@@ -30,16 +29,11 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
-        options: {
-          presets: ['es2015'],
-        },
-      },
+      {test: /\.js$/, loader: 'babel-loader', include: [path.resolve(__dirname, 'src')], options: { presets: ['es2015']}},
+      {test: /\.scss$/, loaders: ['css-loader', 'sass-loader'], include: path.resolve(__dirname, 'src')},
+      {test: /\.(png|woff|eot|ttf|swf|cur)/, loader: 'url-loader?limit=1'},
+      {test: /\.svg/, loader: 'svg-inline-loader'},
+      {test: /\.html/, loader: 'html-loader', options: { minimize: true }}
     ],
   },
   plugins: plugins,
@@ -48,7 +42,6 @@ module.exports = {
       path.resolve(__dirname, "public"),
       path.resolve(__dirname, "node_modules/clappr/dist"),
     ],
-    // publicPath: '/js/',
     disableHostCheck: true, // https://github.com/webpack/webpack-dev-server/issues/882
     compress: true,
     host: "0.0.0.0",
