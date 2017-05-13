@@ -1,0 +1,27 @@
+{
+  "name": "clappr-nytimes-husk",
+  "version": "0.0.0",
+  "description": "Husk for NYTimes style and needs on Clappr Edit",
+  "main": "index.js",
+  "scripts": {
+    "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
+    "start": "http-server",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flavioribeiro/clappr-nytimes-husk.git"
+  },
+  "author": "Flávio Ribeiro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flavioribeiro/clappr-nytimes-husk/issues"
+  },
+  "homepage": "https://github.com/flavioribeiro/clappr-nytimes-husk#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack": "^2.5.1"
+  }
+}
