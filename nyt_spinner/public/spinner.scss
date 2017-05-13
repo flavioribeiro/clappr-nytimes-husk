@@ -1,0 +1,56 @@
+@keyframes spin {
+    to { transform: rotate(1turn); }
+}
+
+.nyt-buffering-container[data-spinner] {
+    z-index: 999;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 8px;
+
+    &> .nyt-buffering-spinner {
+      margin: 0 auto;
+      width: 5em;
+      height: 5em;
+      animation: spin 1s infinite steps(8);
+      position: relative;
+      position: relative;
+      top: 45%;
+    }
+}
+
+.nyt-buffering-spinner:before,
+.nyt-buffering-spinner:after,
+.nyt-buffering-spinner > div:before,
+.nyt-buffering-spinner > div:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 2.25em; /* (container width - part width)/2  */
+    width: .5em;
+    height: 1.5em;
+    border-radius: .2em;
+    background: #eee;
+    box-shadow: 0 3.5em #eee; /* container height - part height */
+    transform-origin: 50% 2.5em; /* container height / 2 */
+}
+
+.nyt-buffering-spinner:before {
+    background: #555;
+}
+
+.nyt-buffering-spinner:after {
+    transform: rotate(-45deg);
+    background: #777;
+}
+
+.nyt-buffering-spinner > div:before {
+    transform: rotate(-90deg);
+    background: #999;
+}
+
+.nyt-buffering-spinner > div:after {
+    transform: rotate(-135deg);
+    background: #bbb;
+}
