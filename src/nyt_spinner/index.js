@@ -29,6 +29,7 @@ export default class NYTSpinner extends UIContainerPlugin {
   }
 
   hide() {
+    return
     if (this.showTimeout !== null) {
       clearTimeout(this.showTimeout)
       this.showTimeout = null
@@ -42,7 +43,6 @@ export default class NYTSpinner extends UIContainerPlugin {
     const style = Styler.getStyleFor(spinnerStyle)
     this.container.$el.append(this.$el[0])
     this.container.$el.append(style[0])
-    this.$el.hide()
     if (this.container.buffering) {
       this.show()
     }
