@@ -1,4 +1,4 @@
-import {UICorePlugin, Events, Styler, template} from 'Clappr'
+import {UICorePlugin, Utils, Events, Styler, template} from 'Clappr'
 import controlsHTML from './public/controls.html'
 import controlsStyle from './public/controls.scss'
 
@@ -48,7 +48,8 @@ export default class NYTControls extends UICorePlugin {
   }
 
   onTimeUpdate(e) {
-    console.log("on time update", e)
+    this.ui.duration.text(Utils.formatTime(e.total))
+    this.ui.currentTime.text(Utils.formatTime(e.current))
   }
 
   render() {
