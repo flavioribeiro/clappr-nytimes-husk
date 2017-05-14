@@ -50,7 +50,17 @@ export default class NYTControls extends UICorePlugin {
   onTimeUpdate(e) {
     this.ui.duration.text(Utils.formatTime(e.total))
     this.ui.currentTime.text(Utils.formatTime(e.current))
+
+		const percent = this.getSeekPosition(e);
+		this.ui.progressTime.css({ width: `${percent}%` });
+		this.ui.marker.css({ left: `${percent}%` });
   }
+
+	getSeekPosition(e) {
+		const position = (e.current / e.total) * 100;
+		const trimmedPosition = Math.max(0, Math.min(position, 100));
+		return parseFloat(trimmedPosition.toFixed(2));
+	}
 
   render() {
     this.style = Styler.getStyleFor(controlsStyle)
