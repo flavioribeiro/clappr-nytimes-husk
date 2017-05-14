@@ -1,7 +1,7 @@
 @import "./other-mixins";
 @import "./fonts";
 
-$p: '.vhs-plugin-controls'; //prefix
+$p: '.controls'; //prefix
 
 [data-player] #{$p} {
     @include user-select('none');
