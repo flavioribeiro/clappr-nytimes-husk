@@ -20,23 +20,23 @@ export default class NYTControls extends UICorePlugin {
   }
 
   bind() {
-		this.ui = {
-			play: this.$el.find('.controls-play'),
-			progress: this.$el.find('.controls-progress'),
-			progressTimeline: this.$el.find('.controls-progress-timeline'),
-			progressBuffer: this.$el.find('.controls-progress-buffer'),
-			progressTime: this.$el.find('.controls-progress-time'),
-			marker: this.$el.find('.controls-progress-marker'),
-			duration: this.$el.find('.controls-duration'),
-			currentTime: this.$el.find('.controls-current-time'),
-		};
+    this.ui = {
+      play: this.$el.find('.controls-play'),
+      progress: this.$el.find('.controls-progress'),
+      progressTimeline: this.$el.find('.controls-progress-timeline'),
+      progressBuffer: this.$el.find('.controls-progress-buffer'),
+      progressTime: this.$el.find('.controls-progress-time'),
+      marker: this.$el.find('.controls-progress-marker'),
+      duration: this.$el.find('.controls-duration'),
+      currentTime: this.$el.find('.controls-current-time'),
+    };
 
     let container = this.core.mediaControl.container
     this.listenTo(container, Events.CONTAINER_PLAY, this.onPlay)
-		this.listenTo(container, Events.CONTAINER_PAUSE, this.onPause)
+    this.listenTo(container, Events.CONTAINER_PAUSE, this.onPause)
     this.listenTo(container, Events.CONTAINER_TIMEUPDATE, this.onTimeUpdate)
-		this.listenTo(container, Events.CONTAINER_SEEK, this.onSeek)
-		this.listenTo(container, Events.CONTAINER_ERROR, this.onError)
+    this.listenTo(container, Events.CONTAINER_SEEK, this.onSeek)
+    this.listenTo(container, Events.CONTAINER_ERROR, this.onError)
   }
 
   onPlay() {
@@ -47,10 +47,13 @@ export default class NYTControls extends UICorePlugin {
     this.ui.play.addClass('vhs-icon-play').removeClass('vhs-icon-pause')
   }
 
+  onTimeUpdate(e) {
+    console.log("on time update", e)
+  }
+
   render() {
     this.style = Styler.getStyleFor(controlsStyle)
-    this.template = template(controlsHTML)
-    this.$el.html(this.template())
+    this.$el.html(template(controlsHTML)())
 
     this.core.$el.append(this.$el[0])
     this.core.$el.append(this.style[0])
@@ -59,4 +62,3 @@ export default class NYTControls extends UICorePlugin {
     return this
   }
 }
-
