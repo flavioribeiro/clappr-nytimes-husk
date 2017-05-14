@@ -3,13 +3,15 @@
 
 $p: '.vhs-plugin-controls'; //prefix
 
-#{$p} {
+[data-player] #{$p} {
     @include user-select('none');
     z-index: 999;
     position: absolute;
     bottom: -1px;
     left: 0;
     right: 0;
+    padding: 17px;
+    padding-top: 7%;
     pointer-events: none;
     font-size: 1.3em;
     transition: bottom 0.3s, opacity 0.3s;
@@ -72,9 +74,9 @@ $p: '.vhs-plugin-controls'; //prefix
     }
 }
 
-#{$p}-play-container,
-#{$p}-progress,
-#{$p}-options-container {
+[data-player] #{$p}-play-container,
+[data-player] j#{$p}-progress,
+[data-player] #{$p}-options-container {
     display: inline-block;
     pointer-events: auto;
     -webkit-align-self: center;
@@ -84,9 +86,11 @@ $p: '.vhs-plugin-controls'; //prefix
 // Play/Pause, Seek, Replay, and Error
 // ***********************************
 
-#{$p}-play-container {
+[data-player] #{$p}-play-container {
     @include ordinal-group(1);
 
+    margin: 0 18px 0 9px;
+    font-size: 18px;
     height: 0;
     text-align: center;
     line-height: 1;
@@ -107,7 +111,7 @@ $p: '.vhs-plugin-controls'; //prefix
 // Error and Advertisement Messages
 // ********************************
 
-#{$p}-message-container {
+[data-player] #{$p}-message-container {
     @include flex(1);
     @include ordinal-group(2);
 
@@ -135,7 +139,7 @@ $p: '.vhs-plugin-controls'; //prefix
 // Current Time, Progress Bar, Buffer, Duration, and Marker
 // ********************************************************
 
-#{$p}-progress {
+[data-player] #{$p}-progress {
     @include flex(1);
     @include ordinal-group(3);
     @include flexbox();
@@ -149,13 +153,22 @@ $p: '.vhs-plugin-controls'; //prefix
         display: none;
     }
 
-    #{$p}-current-time,
     #{$p}-duration {
+        font-size: 10px;
         font: normal bold 10px/1 'franklin', 'nyt-franklin', sans-serif;
         cursor: default;
     }
 
+    #{$p}-current-time {
+        margin-right: 15px;
+        font-size: 10px;
+        font: normal bold 10px/1 'franklin', 'nyt-franklin', sans-serif;
+        cursor: default;
+    }
+
+
     #{$p}-progress-timeline {
+        height: 10px;
         position: relative;
         @include flex(1);
         align-items: center;
@@ -222,9 +235,11 @@ $p: '.vhs-plugin-controls'; //prefix
 // Captions, HD, Volume, and Fullscreen
 // ************************************
 
-#{$p}-options-container {
+[data-player] #{$p}-options-container {
     @include flexbox();
     @include ordinal-group(4);
+
+    margin-left: 18px;
 
     #{$p}-option {
         font-family: 'vhs';
@@ -233,13 +248,10 @@ $p: '.vhs-plugin-controls'; //prefix
         text-align: center;
         cursor: pointer;
         color: rgba(255,255,255,0.8);
+        margin-right: 18px;
 
         &:hover {
             color: white;
-        }
-
-        &:last-child {
-            margin-right: 0;
         }
 
         &.vhs-icon-resize-full:before { content: '\e809'; }
