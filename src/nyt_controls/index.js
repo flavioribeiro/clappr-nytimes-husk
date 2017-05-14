@@ -7,7 +7,10 @@ export default class NYTControls extends UICorePlugin {
 
   get events() {
     return {
-      'click .controls-play': 'togglePlay'
+      'click .controls-play': 'togglePlay',
+      'mousedown .controls-progress-timeline': 'seekDrag',
+      'mousemove .controls-progress-timeline': 'seekDrag',
+      'mouseleave .controls-progress-timeline': 'finishSeekDrag'
     }
   }
 
@@ -17,6 +20,14 @@ export default class NYTControls extends UICorePlugin {
     } else {
       this.core.mediaControl.play()
     }
+  }
+
+  seekDrag(e) {
+    console.log("seek drag", e)
+  }
+
+  finishSeekDrag(e) {
+    console.log("finish seek drag", e)
   }
 
   bind() {
@@ -51,16 +62,16 @@ export default class NYTControls extends UICorePlugin {
     this.ui.duration.text(Utils.formatTime(e.total))
     this.ui.currentTime.text(Utils.formatTime(e.current))
 
-		const percent = this.getSeekPosition(e);
-		this.ui.progressTime.css({ width: `${percent}%` });
-		this.ui.marker.css({ left: `${percent}%` });
+    const percent = this.getSeekPosition(e);
+    this.ui.progressTime.css({ width: `${percent}%` });
+    this.ui.marker.css({ left: `${percent}%` });
   }
 
-	getSeekPosition(e) {
-		const position = (e.current / e.total) * 100;
-		const trimmedPosition = Math.max(0, Math.min(position, 100));
-		return parseFloat(trimmedPosition.toFixed(2));
-	}
+  getSeekPosition(e) {
+    const position = (e.current / e.total) * 100;
+    const trimmedPosition = Math.max(0, Math.min(position, 100));
+    return parseFloat(trimmedPosition.toFixed(2));
+  }
 
   render() {
     this.style = Styler.getStyleFor(controlsStyle)
