@@ -6,25 +6,18 @@ export default class NYTControls extends MediaControl {
   get events() {
     return {
       'click .controls-play': 'togglePlayPause',
-      //      'click [data-stop]': 'stop',
-      //      'click [data-playstop]': 'togglePlayStop',
-      //      'click [data-fullscreen]': 'toggleFullscreen',
-      //      'click .bar-container[data-seekbar]': 'seek',
-      //      'click .bar-container[data-volume]': 'onVolumeClick',
-      //      'click .drawer-icon[data-volume]': 'toggleMute',
-      //      'click [data-cc-button]': 'toggleClosedCaptions',
-      //      'mouseenter .drawer-container[data-volume]': 'showVolumeBar',
-      //      'mouseleave .drawer-container[data-volume]': 'hideVolumeBar',
-      //      'mousedown .bar-container[data-volume]': 'startVolumeDrag',
-      //      'mousemove .bar-container[data-volume]': 'mousemoveOnVolumeBar',
-      //      'mousedown .bar-scrubber[data-seekbar]': 'startSeekDrag',
-      //      'mousemove .bar-container[data-seekbar]': 'mousemoveOnSeekBar',
-      //      'mouseleave .bar-container[data-seekbar]': 'mouseleaveOnSeekBar',
-      //      'mouseenter .media-control-layer[data-controls]': 'setUserKeepVisible',
-      //      'mouseleave .media-control-layer[data-controls]': 'resetUserKeepVisible'
+      'click .controls-fullscreen': 'toggleFullscreen',
+      'click .controls-progress-timeline': 'seek',
+      'click .controls-volume': 'toggleMute',
+      'mousedown .controls-progress-timeline': 'startSeekDrag',
+      'mousemove .controls-progress-timeline': 'mousemoveOnSeekBar',
+      'mouseleave .controls-progress-timeline': 'mouseleaveOnSeekBar',
     }
-
   }
+
+  toggleMute() {}
+
+  playerResize() {}
 
   changeTogglePlay() {
     if (this.container && this.container.isPlaying()) {
@@ -34,16 +27,24 @@ export default class NYTControls extends MediaControl {
     }
   }
 
+  toggleFullscreen() {
+    super.toggleFullscreen()
+    if (Utils.Fullscreen.isFullscreen()) {
+      this.$fullscreenToggle.addClass('vhs-icon-resize-default').removeClass('vhs-icon-resize-full')
+    } else {
+      this.$fullscreenToggle.addClass('vhs-icon-resize-full').removeClass('vhs-icon-resize-default')
+    }
+  }
+
   createCachedElements() {
     const $layer = this.$el.find('.controls')
-    console.log("creating cached elements", $layer.length)
     this.$duration = $layer.find('.controls-duration')
     this.$fullscreenToggle = $layer.find('.controls-fullscreen')
     this.$playPauseToggle = $layer.find('.controls-play')
     this.$playStopToggle = $layer.find('.controls-play')
     this.$position = $layer.find('.controls-current-time')
     this.$seekBarContainer = $layer.find('.controls-progress-timeline')
-    this.$seekBarHover = $layer.find('.controls-progress-buffer-and-time')
+    this.$seekBarHover = $layer.find('.controls-progress-scrubber')
     this.$seekBarLoaded = $layer.find('.controls-progress-buffer')
     this.$seekBarPosition = $layer.find('.controls-progress-time')
     this.$seekBarScrubber = $layer.find('.controls-progress-marker')
@@ -55,9 +56,6 @@ export default class NYTControls extends MediaControl {
     this.$volumeBarScrubber = this.$el.find('.controls-volume-slider')
     this.$hdIndicator = this.$el.find('.controls-hd')
   }
-
-  // should change the icon if Fullscreen.isFullscreen()
-  playerResize() {}
 
   render() {
     super.render()

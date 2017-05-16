@@ -75,7 +75,7 @@ $p: '.controls'; //prefix
 }
 
 [data-player] #{$p}-play-container,
-[data-player] j#{$p}-progress,
+[data-player] #{$p}-progress,
 [data-player] #{$p}-options-container {
     display: inline-block;
     pointer-events: auto;
