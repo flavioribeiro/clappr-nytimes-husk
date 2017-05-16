@@ -1,4 +1,4 @@
-import {$, UICorePlugin, Utils, MediaControl, Events, Styler, template} from 'Clappr'
+import {Utils, MediaControl, Styler, template} from 'clappr'
 import controlsHTML from './public/controls.html'
 import controlsStyle from './public/controls.scss'
 

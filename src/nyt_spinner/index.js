@@ -1,4 +1,4 @@
-import {UIContainerPlugin, Events, Styler, template} from 'Clappr'
+import {UIContainerPlugin, Events, Styler, template} from 'clappr'
 import spinnerHTML from './public/spinner.html'
 import spinnerStyle from './public/spinner.scss'
 
