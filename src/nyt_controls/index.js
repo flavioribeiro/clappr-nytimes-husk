@@ -19,6 +19,16 @@ export default class NYTControls extends MediaControl {
 
   playerResize() {}
 
+  hide() {
+    super.hide()
+    this.$el.find('.controls').addClass('vhs-controls-hidden').removeClass('vhs-controls-active')
+  }
+
+  show() {
+    super.show()
+    this.$el.find('.controls').addClass('vhs-controls-active').removeClass('vhs-controls-hidden')
+  }
+
   changeTogglePlay() {
     if (this.container && this.container.isPlaying()) {
       this.$playPauseToggle.addClass('vhs-icon-pause').removeClass('vhs-icon-play')
