@@ -21,12 +21,12 @@ export default class NYTControls extends MediaControl {
 
   hide() {
     super.hide()
-    this.$el.find('.controls').addClass('vhs-controls-hidden').removeClass('vhs-controls-active')
+    this.$layer.addClass('vhs-controls-hidden').removeClass('vhs-controls-active')
   }
 
   show() {
     super.show()
-    this.$el.find('.controls').addClass('vhs-controls-active').removeClass('vhs-controls-hidden')
+    this.$layer.addClass('vhs-controls-active').removeClass('vhs-controls-hidden')
   }
 
   changeTogglePlay() {
@@ -47,20 +47,20 @@ export default class NYTControls extends MediaControl {
   }
 
   createCachedElements() {
-    const $layer = this.$el.find('.controls')
-    this.$duration = $layer.find('.controls-duration')
-    this.$fullscreenToggle = $layer.find('.controls-fullscreen')
-    this.$playPauseToggle = $layer.find('.controls-play')
-    this.$playStopToggle = $layer.find('.controls-play')
-    this.$position = $layer.find('.controls-current-time')
-    this.$seekBarContainer = $layer.find('.controls-progress-timeline')
-    this.$seekBarHover = $layer.find('.controls-progress-scrubber')
-    this.$seekBarLoaded = $layer.find('.controls-progress-buffer')
-    this.$seekBarPosition = $layer.find('.controls-progress-time')
-    this.$seekBarScrubber = $layer.find('.controls-progress-marker')
-    this.$volumeBarContainer = $layer.find('.controls-volume-slider-container')
-    this.$volumeContainer = $layer.find('.controls-volume')
-    this.$volumeIcon = $layer.find('.controls-volume')
+    this.$layer = this.$el.find('.controls')
+    this.$duration = this.$layer.find('.controls-duration')
+    this.$fullscreenToggle = this.$layer.find('.controls-fullscreen')
+    this.$playPauseToggle = this.$layer.find('.controls-play')
+    this.$playStopToggle = this.$layer.find('.controls-play')
+    this.$position = this.$layer.find('.controls-current-time')
+    this.$seekBarContainer = this.$layer.find('.controls-progress-timeline')
+    this.$seekBarHover = this.$layer.find('.controls-progress-scrubber')
+    this.$seekBarLoaded = this.$layer.find('.controls-progress-buffer')
+    this.$seekBarPosition = this.$layer.find('.controls-progress-time')
+    this.$seekBarScrubber = this.$layer.find('.controls-progress-marker')
+    this.$volumeBarContainer = this.$layer.find('.controls-volume-slider-container')
+    this.$volumeContainer = this.$layer.find('.controls-volume')
+    this.$volumeIcon = this.$layer.find('.controls-volume')
     this.$volumeBarBackground = this.$el.find('.controls-volume-slider-track')
     this.$volumeBarFill = this.$el.find('.controls-volume-slider-fill')
     this.$volumeBarScrubber = this.$el.find('.controls-volume-slider')
