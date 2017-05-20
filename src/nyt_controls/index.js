@@ -19,6 +19,8 @@ export default class NYTControls extends MediaControl {
 
   playerResize() {}
 
+  setVolume() {}
+
   hide() {
     super.hide()
     this.$layer.addClass('vhs-controls-hidden').removeClass('vhs-controls-active')
@@ -39,11 +41,13 @@ export default class NYTControls extends MediaControl {
 
   toggleFullscreen() {
     super.toggleFullscreen()
-    if (Utils.Fullscreen.isFullscreen()) {
-      this.$fullscreenToggle.addClass('vhs-icon-resize-default').removeClass('vhs-icon-resize-full')
-    } else {
-      this.$fullscreenToggle.addClass('vhs-icon-resize-full').removeClass('vhs-icon-resize-default')
-    }
+    process.nextTick(() => {
+      if (Utils.Fullscreen.isFullscreen()) {
+        this.$fullscreenToggle.addClass('vhs-icon-resize-default').removeClass('vhs-icon-resize-full')
+      } else {
+        this.$fullscreenToggle.addClass('vhs-icon-resize-full').removeClass('vhs-icon-resize-default')
+      }
+    })
   }
 
   createCachedElements() {
@@ -69,8 +73,8 @@ export default class NYTControls extends MediaControl {
 
   render() {
     super.render()
-    this.style = Styler.getStyleFor(controlsStyle)
     this.$el.html(template(controlsHTML)())
+    this.style = Styler.getStyleFor(controlsStyle)
     this.$el.append(this.style[0])
     this.createCachedElements()
     return this
