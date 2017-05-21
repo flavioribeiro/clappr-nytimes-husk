@@ -1,28 +1,41 @@
 import Clappr from 'clappr'
+import $ from 'clappr'
+import xhr from 'tiny-xhr'
+
 import NYTSpinner from './spinner'
 import NYTControls from './controls'
 import NYTPoster from './poster'
 
 let player = (options) => {
-  let source = getSource(options.id)
-  let poster = getPoster(options.id)
-  let player = new Clappr.Player({
-    parentId: '#' + options.container,
-    width: "670px",
-    height: "377px",
-    source: source,
-    poster: poster,
-    plugins: {container:[NYTSpinner, NYTPoster]},
-    mediacontrol: {external: NYTControls}
+  getInfo(options.id).then(info => {
+    let player = new Clappr.Player({
+      parentId: '#' + options.container,
+      width: "670px",
+      height: "377px",
+      source: getSource(info.renditions).url,
+      poster: getPoster(info.images),
+      plugins: {container:[NYTSpinner, NYTPoster]},
+      mediacontrol: {external: NYTControls}
+    })
   })
 }
 
-let getSource = (id) => {
-  return "https://vp.nyt.com/video/2017/05/09/72421_1_11bearsears-vid_wg_360p.mp4"
+let getInfo = (id) => {
+  let options = {url: "http://www.nytimes.com/svc/video/api/v3/video/" + id, method: "GET"}
+  return xhr(options).then(res => { return res.response })
 }
 
-let getPoster = (id) => {
-  return "https://static01.nyt.com/images/2014/05/14/multimedia/clark-rhubarb-shake/clark-rhubarb-shake-videoSixteenByNine1050-v2.jpg"
+let getSource = (rends) => {
+  if (Clappr.HLS.canPlay(".m3u8")) {
+    return rends.find(rendition => { return rendition.url.includes(".m3u8") })
+  } else {
+    return rends.find(rendition => { return rendition.type.includes("720p") })
+  }
+}
+
+let getPoster = (images) => {
+  let image = images.find(image => { return image.url.includes("videoLarge") })
+  return image.domain + image.url
 }
 
 module.exports = { player }
