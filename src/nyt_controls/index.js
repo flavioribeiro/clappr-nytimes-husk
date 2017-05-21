@@ -15,11 +15,20 @@ export default class NYTControls extends MediaControl {
     }
   }
 
-  toggleMute() {}
-
   playerResize() {}
 
-  setVolume() {}
+  toggleMute() {
+    if (!this.container) return
+    this.muted ? this.setVolume(100) : this.setVolume(0)
+  }
+
+  updateVolumeUI() {
+    if (this.muted) {
+      this.$volumeIcon.addClass('vhs-icon-volume-off').removeClass('vhs-icon-volume-on')
+    } else {
+      this.$volumeIcon.addClass('vhs-icon-volume-on').removeClass('vhs-icon-volume-off')
+    }
+  }
 
   hide() {
     super.hide()
