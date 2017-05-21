@@ -78,6 +78,7 @@ export default class NYTControls extends MediaControl {
     this.$volumeBarFill = this.$el.find('.controls-volume-slider-fill')
     this.$volumeBarScrubber = this.$el.find('.controls-volume-slider')
     this.$hdIndicator = this.$el.find('.controls-hd')
+    this.$seekBarScrubber.css({left: "0%"})
   }
 
   render() {
