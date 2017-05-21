@@ -123,11 +123,11 @@ $zindex-poster-media-action-overlay: 2;
     -moz-border-radius: 4px;
     border-radius: 4px;
     padding: 14px 16px;
+}
 
-    .nytd-player-container:hover & {
-        background-color: $hover-blue-dark;
-        border-color: $hover-blue-dark;
-    }
+[data-player] .vhs-media-action-overlay.vhs-duration-poster:hover {
+    background-color: $hover-blue-dark;
+    border-color: $hover-blue-dark;
 }
 
 [data-player] .vhs-media-action-overlay.vhs-duration-poster .vhs-poster-play-button {
