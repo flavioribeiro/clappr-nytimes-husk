@@ -16,7 +16,12 @@ export default class VHS {
         source: getSource(info.renditions).url,
         poster: getPoster(info.images),
         plugins: options.plugins ? plugins.concat(options.plugins) : plugins,
-        mediacontrol: {external: NYTControls}
+        mediacontrol: {external: NYTControls},
+        playback: {
+          preload: 'metadata',
+          playInline: true,
+          recycleVideo: true
+        }
       })
     })
   }
@@ -28,7 +33,7 @@ let getInfo = (id) => {
 }
 
 let getSource = (rends) => {
-  if (Clappr.HLS.canPlay(".m3u8")) {
+  if (Clappr.HLS.canPlay(".m3u8") || Clappr.Browser.isSafari) {
     return rends.find(rendition => { return rendition.url.includes(".m3u8") })
   } else {
     return rends.find(rendition => { return rendition.type.includes("720p") })
