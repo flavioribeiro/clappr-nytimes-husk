@@ -1,7 +1,7 @@
 import Clappr from 'clappr'
-import NYTSpinner from './nyt_spinner'
-import NYTControls from './nyt_controls'
-import NYTPoster from './nyt_poster'
+import NYTSpinner from './spinner'
+import NYTControls from './controls'
+import NYTPoster from './poster'
 
 let player = new Clappr.Player({
   parent: '.player',
