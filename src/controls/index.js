@@ -60,7 +60,7 @@ export default class NYTControls extends MediaControl {
   }
 
   updateProgressBar(progress) {
-    const loadedEnd = progress.current / progress.total * 100
+    const loadedEnd = Math.min(progress.current / progress.total * 100, 100)
     this.$seekBarLoaded.css({ width: `${loadedEnd}%` })
   }
 
