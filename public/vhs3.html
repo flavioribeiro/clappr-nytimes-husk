@@ -1,0 +1,191 @@
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://static01.nyt.com/favicon.ico" />
+  <title>VHS Player - Test page</title>
+
+  <meta name="sourceApp" content="nytv">
+
+  <style>
+    body {
+			margin: 0;
+		}
+
+		.container {
+			width: 670px;
+			margin: 0 auto;
+		}
+
+		header {
+			margin-bottom: 30px;
+			padding: 20px 0 10px;
+		}
+
+		header h2 {
+			color: #000;
+			margin-top: 10px;
+		}
+
+		header h3 {
+			color: #999;
+			margin-bottom: 10px;
+		}
+  </style>
+
+  <script>
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+  </script>
+
+  <!-- Vi Fonts -->
+  <script type="text/javascript">
+    var fonts = getParameterByName('fonts');
+
+    if (fonts === 'nyt5') {
+      var link = document.createElement('link');
+      link.id = 'legacy-zam5nzz';
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'https://typeface.nyt.com/css/zam5nzz.css';
+      link.media = 'all';
+      document.querySelector('head').appendChild(link);
+    } else {
+      // default to vi fonts now
+      (function (w, d) {
+        var m = 'querySelector' in d && 'addEventListener' in w && 'localStorage' in w && 'sessionStorage' in w && 'bind' in Function && (('XMLHttpRequest' in w && 'withCredentials' in new XMLHttpRequest()) || 'XDomainRequest' in w);
+        if (m) {
+          if (localStorage.getItem('fonts') != null && JSON.parse(localStorage.getItem('fonts'))['version'] == 1) {
+            var st = d.createElement('style');
+            st.appendChild(d.createTextNode(JSON.parse(localStorage.getItem('fonts')).d));
+            d.querySelector('head').appendChild(st);
+            d.documentElement.classList.add('custom-fonts');
+          } else {
+            var cfs = d.createElement('script');
+            cfs.id = 'fontScript';
+            cfs.async = true;
+            cfs.type = 'text/javascript';
+            cfs.src = "https://alpha.nytimes.com/vi-assets/fonts-c8f05bbf23a5ba70ed669d01529ef945.js";
+            cfs.onload = function () {
+                d.documentElement.classList.add('custom-fonts');
+            };
+            d.querySelector('head').appendChild(cfs);
+          }
+        }
+      }(window, document));
+    }
+  </script>
+
+
+  <script>
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    function loadDfpScript() {
+      var dfpScriptTag = document.createElement("script");
+      dfpScriptTag.async = true;
+      dfpScriptTag.type = "text/javascript";
+      var useHttps = "https:" == document.location.protocol;
+      dfpScriptTag.src=(useHttps ? "https:" : "http:") + "//www.googletagservices.com/tag/js/gpt.js";
+      var firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(dfpScriptTag, firstScriptTag)
+    }
+    loadDfpScript();
+  </script>
+
+  <script src="http://static01.stg.nyt.com/video-static/vhs3/libs/jquery.js"></script>
+  <script src="http://static01.stg.nyt.com/video-static/vhs3/vhs.js"></script>
+  <script>
+  function queryStringToJSON() {
+    var pairs = location.search.slice(1).split('&');
+    var value;
+    var result = {};
+    for (var i = 0, len = pairs.length; i < len; i++) {
+      pair = pairs[i];
+      pair = pair.split('=');
+      value = decodeURIComponent(pair[1] || '');
+      if (value === 'true') {
+        value = true;
+      } else if (value === 'false') {
+        value = false;
+      }
+      result[pair[0]] = value;
+    }
+    return JSON.parse(JSON.stringify(result));
+  }
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // set env to stg in non-prd domains for tagx testing
+      var domain = window.location.host;
+      var stgDomains = ['localhost', '.local.', '.dev.', '.stg.'];
+      for (var i = 0, len = stgDomains.length; i < len; i++) {
+        if (domain.indexOf(stgDomains[i]) !== -1) {
+          // stg domain
+          window.NYTD = window.NYTD || {};
+          window.NYTD.env = 'stg';
+          break;
+        }
+      }
+
+      var scriptNode = document.createElement('script');
+      if (window.NYTD && window.NYTD.env === 'stg') {
+        scriptNode.src = 'https://assets.stg.nytimes.com/analytics/tagx-simple.min.js';
+      } else {
+        scriptNode.src = 'https://a1.nyt.com/analytics/tagx-simple.min.js';
+      }
+      document.body.appendChild(scriptNode);
+    });
+  </script>
+</head>
+
+  <body>
+    <div class="container">
+      <header>
+  <h3>
+    📼&nbsp;&nbsp;VHS player
+  </h3>
+  <h2>Default</h2>
+</header>
+
+
+      <div id="video-container"></div>
+
+      <script type="text/javascript">
+        $(document).ready(function() {
+          var config = $.extend({
+            id: 100000002883899,
+            container: 'video-container',
+            width: '100%',
+            height: '100%',
+            type: 'player-test',
+            debug: true,
+            ads: true
+          }, queryStringToJSON());
+
+          if (config.gtm) {
+              config.gtmTrackEvent = function(data) {
+                  console.log("GTM Data:", data);
+              }
+          }
+
+          if (config.poster) {
+            config.poster = { mode: config.poster };
+            if (config.homepageHeadline) {
+              config.poster.headline = config.homepageHeadline;
+            }
+          }
+
+          var htmlPlayer = VHS.player(config);
+        });
+      </script>
+    </div>
+  </body>
+</html>
+
