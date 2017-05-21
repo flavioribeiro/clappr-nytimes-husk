@@ -7,10 +7,12 @@ var outputFile, plugins = []
 
 if (process.env.npm_lifecycle_event === 'dist') {
   outputFile = 'app.min.js'
+  plugins.push(new webpack.LoaderOptionsPlugin({ minimize: true, debug: false }))
   plugins.push(new webpack.optimize.UglifyJsPlugin({
-    output: {
-      comments: false,
-    },
+    compress: {warnings: false},
+    output: {comments: false},
+    mangle: true,
+    comments: false
   }))
 } else {
   outputFile = 'app.js'
