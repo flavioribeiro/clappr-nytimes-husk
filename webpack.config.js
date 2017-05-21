@@ -34,7 +34,7 @@ module.exports = {
   module: {
     rules: [
       {test: /\.js$/, loader: 'babel-loader', include: [path.resolve(__dirname, 'src')], options: { presets: ['es2015']}},
-      {test: /\.scss$/, loaders: ['css-loader', 'sass-loader'], include: path.resolve(__dirname, 'src')},
+      {test: /\.(scss|css)$/, loaders: ['css-loader', 'sass-loader'], include: path.resolve(__dirname, 'src')},
       {test: /\.html/, loader: 'html-loader', options: { minimize: true }},
       {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'}
     ],

@@ -4,6 +4,7 @@ import xhr from 'tiny-xhr'
 import NYTSpinner from './spinner'
 import NYTControls from './controls'
 import NYTPoster from './poster'
+import Responsive from './common/responsive.css'
 
 export default class VHS {
   static player(options) {
@@ -11,8 +12,8 @@ export default class VHS {
     getInfo(options.id).then(info => {
       this.playerInstance = new Clappr.Player({
         parentId: '#' + options.container,
-        width: "670px",
-        height: "377px",
+        width: options.width,
+        height: options.height,
         source: getSource(info.renditions).url,
         poster: getPoster(info.images),
         plugins: options.plugins ? plugins.concat(options.plugins) : plugins,
@@ -23,8 +24,12 @@ export default class VHS {
           recycleVideo: true
         }
       })
+
+      this.style = Clappr.Styler.getStyleFor(Responsive)
+      this.playerInstance.core.$el.append(this.style[0])
     })
   }
+
 }
 
 let getInfo = (id) => {

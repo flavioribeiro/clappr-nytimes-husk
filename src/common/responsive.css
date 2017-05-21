@@ -1,0 +1,20 @@
+[data-player] {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+[data-player] .container[data-container] {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+[data-player] video {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
