@@ -1,23 +1,27 @@
 import Clappr from 'clappr'
-import $ from 'clappr'
 import xhr from 'tiny-xhr'
 
 import NYTSpinner from './spinner'
 import NYTControls from './controls'
 import NYTPoster from './poster'
 
-let player = (options) => {
-  getInfo(options.id).then(info => {
-    let player = new Clappr.Player({
-      parentId: '#' + options.container,
-      width: "670px",
-      height: "377px",
-      source: getSource(info.renditions).url,
-      poster: getPoster(info.images),
-      plugins: {container:[NYTSpinner, NYTPoster]},
-      mediacontrol: {external: NYTControls}
+export default class VHS {
+  static player(options) {
+    getInfo(options.id).then(info => {
+      let player = new Clappr.Player({
+        parentId: '#' + options.container,
+        width: "670px",
+        height: "377px",
+        source: getSource(info.renditions).url,
+        poster: getPoster(info.images),
+        plugins: {
+          core: options.plugins && options.plugins.core ? options.plugins.core : [],
+          container: [NYTSpinner, NYTPoster]
+        },
+        mediacontrol: {external: NYTControls}
+      })
     })
-  })
+  }
 }
 
 let getInfo = (id) => {
@@ -38,4 +42,4 @@ let getPoster = (images) => {
   return image.domain + image.url
 }
 
-module.exports = { player }
+module.exports = { VHS, Clappr }
