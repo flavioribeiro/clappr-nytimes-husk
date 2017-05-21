@@ -50,13 +50,13 @@ export default class NYTControls extends MediaControl {
 
   toggleFullscreen() {
     super.toggleFullscreen()
-    process.nextTick(() => {
+    setTimeout(() => {
       if (Utils.Fullscreen.isFullscreen()) {
         this.$fullscreenToggle.addClass('vhs-icon-resize-default').removeClass('vhs-icon-resize-full')
       } else {
         this.$fullscreenToggle.addClass('vhs-icon-resize-full').removeClass('vhs-icon-resize-default')
       }
-    })
+    }, 0)
   }
 
   highDefinitionUpdate(isHD) {
