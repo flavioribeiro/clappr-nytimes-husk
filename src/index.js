@@ -1,5 +1,5 @@
 import Clappr from 'clappr'
-import xhr from 'tiny-xhr'
+import fetch from 'unfetch'
 
 import NYTSpinner from './spinner'
 import NYTControls from './controls'
@@ -28,8 +28,8 @@ export default class VHS {
 }
 
 let getInfo = (id) => {
-  let options = {url: "http://www.nytimes.com/svc/video/api/v3/video/" + id, method: "GET"}
-  return xhr(options).then(res => { return res.response })
+  let url = "http://www.nytimes.com/svc/video/api/v3/video/" + id
+  return fetch(url).then(r => r.json())
 }
 
 let getSource = (rends) => {
