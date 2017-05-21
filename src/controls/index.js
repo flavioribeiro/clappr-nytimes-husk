@@ -59,6 +59,14 @@ export default class NYTControls extends MediaControl {
     })
   }
 
+  highDefinitionUpdate(isHD) {
+    if (isHD) {
+      this.$hdIndicator.addClass('vhs-icon-hd-on').removeClass('vhs-icon-hd-off')
+    } else {
+      this.$hdIndicator.addClass('vhs-icon-hd-off').removeClass('vhs-icon-hd-on')
+    }
+  }
+
   updateProgressBar(progress) {
     const loadedEnd = Math.min(progress.current / progress.total * 100, 100)
     this.$seekBarLoaded.css({ width: `${loadedEnd}%` })
