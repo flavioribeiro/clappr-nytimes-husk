@@ -1,0 +1,73 @@
+<div class="nytd-player-poster">
+  <div class="vhs-player-poster-background vhs-<%= mode %>-poster <% if (useUpdatedHomepageCover) { %> vhs-updated-homepage-poster<% } %>"></div>
+  <% if (mode === 'mobile') { %>
+      <i class="vhs-icon-play vhs-poster-play-button vhs-mobile-play-button"></i>
+  <% } %>
+  <div class="vhs-media-action-overlay vhs-<%= mode %>-poster <% if (useUpdatedHomepageCover) { %> vhs-updated-homepage-poster<% } %><% if (use360Cover) { %> vhs-360-poster<% } %>">
+      <% if (mode !== 'homepage') { %>
+      <i class="vhs-icon-play vhs-poster-play-button"></i>
+      <% } %>
+
+      <% if (mode !== 'clean') { %>
+      <div class="vhs-metadata-container">
+
+          <% if (mode === 'duration') { %>
+              <section class="vhs-metadata">
+                  <span class="vhs-video-cta">Play Video</span>
+                  <span class="vhs-video-length"><%= data.duration %></span>
+              </section>
+          <% } else if (mode === 'article' || mode === 'offsite' || mode === 'mobile') { %>
+              <section class="vhs-metadata">
+                  <% if (mode !== 'mobile') { %>
+                      <% if (data.channelName) { %>
+                          <span class="vhs-channel-name"><%= data.channelName %></span>
+                      <% } %>
+                      <% if (data.showName) { %>
+                          <span class="vhs-show-name"><%= data.showName %></span>
+                      <% } %>
+                  <% } %>
+                  <% if (data.byline) { %>
+                      <span class="vhs-byline"><%= data.byline %></span>
+                  <% } else { %>
+                      <span class="vhs-byline vhs-no-byline"></span>
+                  <% } %>
+                  <span class="vhs-video-cta">Play Video</span>
+                  <span class="vhs-video-length"><%= data.duration %></span>
+              </section>
+              <section class="vhs-video-title">
+                  <span><%= data.headline %></span>
+              </section>
+          <% } else if (mode === 'homepage') { %>
+              <div class="vhs-metadata vhs-updated-homepage-poster" >
+                  <div class="vhs-poster-play-icon">
+                      <svg class="vhs-play-circle" height="38" width="38">
+                          <circle cx="19" cy="19" r="17.5px" stroke="#FFF" fill="transparent" stroke-width="2"></circle>
+                      </svg>
+                      <svg class="vhs-play-triangle" width="38" height="38">
+                          <svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 38 38" xml:space="preserve">
+                              <path fill="#FFFFFF" d="M6.7,1C5.8,0.4,5,0.9,5,2v34c0,1.1,0.8,1.6,1.7,1l29.5-17c1-0.5,1-1.4,0-2L6.7,1z"/>
+                          </svg>
+                      </svg>
+                  </div>
+                  <div class="vhs-poster-duration-headline-summary <% if (!data.headline) { %>vhs-poster-no-headline<% } %>">
+                      <% if (isLive) { %>
+                          <span class="vhs-video-live-label">Watch Live</span>
+                          <% } else { %>
+                          <span class="vhs-video-length"><%= data.duration %></span>
+                      <% } %>
+                      <% if (data.headline) { %>
+                      <section class="vhs-metadata">
+                          <span class="vhs-video-title"><%= data.headline %></span>
+                      </section>
+                      <% } %>
+                  </div>
+              </div>
+          <% } %>
+      </div>
+      <% } %>
+
+      <% if (mode === 'offsite') { %>
+          <i class="vhs-icon-times-video-logo vhs-embedded-player-poster-logo"></i>
+      <% } %>
+  </div>
+</div>

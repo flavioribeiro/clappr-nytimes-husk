@@ -1,0 +1,498 @@
+@import "../../common/other-mixins";
+
+$zindex-poster: 9999;
+$zindex-poster-background: 1;
+$zindex-poster-media-action-overlay: 2;
+
+[data-player] .nytd-player-poster {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: $zindex-poster;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+
+    @include transition(opacity .4s ease-in-out);
+
+    .vhs-media-action-overlay {
+      position: absolute;
+      bottom: 17px;
+
+      &.vhs-updated-homepage-poster {
+        bottom: 0;
+        padding: 90px 20px 16px 20px;
+        background-image: linear-gradient(transparent, rgba(0,0,0,0.4));
+      }
+
+      color: white;
+      z-index: $zindex-poster-media-action-overlay;
+      box-sizing: border-box;
+
+      .vhs-poster-play-button {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .vhs-metadata-container {
+        vertical-align: middle;
+      }
+
+      .vhs-channel-name,
+      .vhs-show-name,
+      .vhs-byline,
+      .vhs-video-length {
+        display: inline-block;
+      }
+    }
+
+    &.vhs-poster-hide {
+        opacity: 0;
+    }
+
+    -webkit-backface-visibility: hidden; transform-style: preserve-3d;
+}
+
+[data-player] .vhs-player-poster-background {
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(transparent, rgba(0,0,0,0.4));
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: $zindex-poster-background;
+    pointer-events: none;
+    -webkit-backface-visibility: hidden;
+
+    &.vhs-clean-poster,
+    &.vhs-duration-poster {
+        display: none;
+    }
+
+    &.vhs-updated-homepage-poster {
+        background-image: none;
+    }
+}
+
+
+[data-player] .nytd-player-poster .vhs-media-action-overlay .vhs-media-meta { display: none; }
+[data-player] .nytd-player-poster .vhs-media-action-overlay .vhs-media-meta .vhs-kicker {}
+[data-player] .nytd-player-poster .vhs-media-action-overlay .vhs-media-meta .vhs-kicker .vhs-kicker-label {}
+[data-player] .nytd-player-poster .vhs-media-action-overlay .vhs-media-meta .vhs-kicker .vhs-pipe {}
+[data-player] .nytd-player-poster .vhs-media-action-overlay .vhs-media-meta .vhs-kicker .vhs-duration {}
+[data-player] .nytd-player-poster .vhs-media-action-overlay .vhs-media-meta .vhs-headline {}
+
+/**
+ * Clean Cover
+ * Just Play Button
+ */
+
+[data-player] .vhs-player-poster-background.vhs-clean-poster {
+    display: none;
+}
+
+[dataplayer] .vhs-media-action-overlay.vhs-clean-poster .vhs-poster-play-button {
+    background: black;
+    background: rgba(0,0,0,0.6);
+    -webkit-transition: background-color .2s, border-color .2s;
+    transition: background-color .2s, border-color .2s;
+
+    .nytd-player-container:hover & {
+        background-color: $hover-blue-dark;
+        border-color: $hover-blue-dark;
+    }
+}
+
+/**
+ * Duration Cover
+ * Play, Play Video CTA, Duration
+ */
+
+[data-player] .vhs-media-action-overlay.vhs-duration-poster {
+    border: 1px solid #4a4a4a;
+    -webkit-transition: background-color .2s, border-color .2s;
+    transition: background-color .2s, border-color .2s;
+    background-color: #000;
+    background-color: rgba(0,0,0,0.7);
+
+    .nytd-player-container:hover & {
+        background-color: $hover-blue-dark;
+        border-color: $hover-blue-dark;
+    }
+}
+
+[data-player] .vhs-media-action-overlay.vhs-duration-poster .vhs-poster-play-button {
+    display: inline-block;
+    margin-right: 0.5em;
+    margin-top: -3px;
+}
+
+[data-player] .vhs-metadata-container {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    font-size: 0;
+    font-family: 'franklin', 'nyt-franklin', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+
+
+    .vhs-video-cta {
+        margin: 0 10px 0 0;
+        padding-right: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        display: inline-block;
+        text-transform: uppercase;
+        border-right: 1px solid white;
+        border-right: 1px solid rgba(255,255,255,0.5);
+        white-space: nowrap;
+        color: #fff;
+        font-family: 'franklin', 'nyt-franklin', Helvetica, Arial, sans-serif;
+    }
+
+    .vhs-video-length {
+        font-size: 14px;
+        font-weight: 400;
+        display: inline-block;
+        color: #fff;
+        font-family: 'franklin', 'nyt-franklin', Helvetica, Arial, sans-serif;
+    }
+
+}
+
+
+/**
+ * Article Cover
+ * Play, Channel, Show, Byline, Duration, Title
+ */
+$metadata-vertical-align: middle;
+
+[data-player] .vhs-metadata {
+    line-height: 1;
+    vertical-align: $metadata-vertical-align;
+}
+
+[data-player] .vhs-channel-name {
+    font-family: 'franklin', 'nyt-franklin';
+    font-weight: 700;
+    text-transform: uppercase;
+    vertical-align: $metadata-vertical-align;
+}
+
+[data-player] .vhs-show-name {
+    font-family: 'karnak', 'nyt-karnak', 'nyt-karnak-display-130124';
+    text-transform: uppercase;
+    vertical-align: $metadata-vertical-align;
+}
+
+[data-player] .vhs-article-poster .vhs-video-length {
+    font-family: 'franklin', 'nyt-franklin';
+    font-weight: 700;
+    vertical-align: $metadata-vertical-align;
+}
+
+[data-player] .vhs-media-action-overlay.vhs-article-poster {
+    transition: background-color 0.3s;
+    width: 100%;
+    transition: background-color 0.3s;
+
+    //keeps the play button and metadata inline
+    white-space: nowrap;
+
+    .vhs-metadata-container {
+        width: 100%;
+    }
+
+    .vhs-poster-play-button {
+        position: relative;
+        left: 0;
+        border: 2px solid transparent;
+        border-radius: 50%;
+        transition: all 0.3s;
+
+        &:before {
+            left: 0.113em;
+        }
+    }
+
+    .vhs-video-cta {
+        display: none;
+    }
+}
+
+[data-player] .vhs-media-action-overlay .vhs-byline {
+    @include truncate;
+    font-family: 'franklin', 'nyt-franklin';
+    font-weight: 700;
+    margin-top: 0.2em;
+    display: inline-block;
+    border-left: 1px solid rgba(255,255,255,0.4);
+    border-right: 1px solid rgba(255,255,255,0.4);
+    vertical-align: $metadata-vertical-align;
+    -webkit-backface-visibility: hidden;
+
+    &.vhs-no-byline {
+        margin-right: 0;
+        border-right: none;
+        height: 1em;
+        padding-right: 0;
+    }
+
+    .by {
+        text-transform: uppercase;
+        font-size: 0.9em;
+    }
+}
+
+[data-player] .vhs-video-title {
+    @include truncate;
+    max-width: 100%;
+    font-family: 'cheltenham', 'nyt-cheltenham';
+    line-height: normal;
+    display: block;
+}
+
+[data-player] .vhs-poster-play-button {
+    box-sizing: border-box;
+    position: relative;
+
+    &:before {
+        -webkit-transition: -webkit-transform 0.3s;
+        -ms-transition: -ms-transform 0.3s;
+        transition: transform 0.3s;
+        position: relative;
+    }
+}
+
+[data-player] .nytd-player-container:hover .vhs-media-action-overlay.vhs-article-poster {
+    .vhs-poster-play-button {
+        border-color: white;
+
+        &:before {
+            -webkit-transform: scale(0.5);
+            -ms-transform: scale(0.5);
+            transform: scale(0.5);
+        }
+    }
+}
+
+/**
+ * Mobile Cover
+ * Play (centered), Channel, Show, Byline, Duration, Title
+ */
+
+[data-player] .vhs-media-action-overlay.vhs-mobile-poster {
+    width: 100%;
+
+    .vhs-video-cta,
+    .vhs-poster-play-button {
+        display: none;
+    }
+    .vhs-metadata-container {
+        width: 100%;
+    }
+    .vhs-video-length {
+        vertical-align: middle;
+    }
+    .vhs-video-length,
+    .vhs-channel-name,
+    .vhs-byline,
+    .vhs-show-name {
+        font-weight: 400;
+    }
+    .vhs-video-title {
+        font-weight: bold;
+    }
+    .vhs-show-name {
+        font-family: 'franklin', 'nyt-franklin', Helvetica, Arial, sans-serif;
+        &:before {
+            content: "•";
+        }
+    }
+ }
+
+[data-player]  .vhs-mobile-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    -webkit-transform: translate(-50%, -90%);
+    transform: translate(-50%, -90%);
+    background-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2038%2038%22%3E%3Ccircle%20cx%3D%2219%22%20cy%3D%2219%22%20r%3D%2218%22%20fill%3D%22%23000%22%20fill-opacity%3D%220.1%22%20stroke%3D%22%23FFF%22%20stroke-miterlimit%3D%2210%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+
+    &:before {
+        line-height: 1;
+    }
+ }
+
+/**
+ * Homepage Cover
+ * Play, Duration, [Title, Summary]
+ */
+[data-player] .vhs-media-action-overlay.vhs-homepage-poster {
+    width: 100%;
+    transform-style: preserve-3d;
+
+    .vhs-metadata-container {
+        display: block;
+
+        .vhs-metadata {
+            display: flex;
+            align-items: center;
+        }
+
+        .vhs-poster-play-icon {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-backface-visibility: hidden;
+
+            .vhs-play-circle {
+                opacity: 0;
+                transition: opacity .3s;
+            }
+
+            .vhs-play-triangle {
+                position: absolute;
+                top: 0;
+                left: 0;
+                transition: transform .3s;
+            }
+        }
+
+        .vhs-video-length {
+            margin: 0 0 0 10px;
+            padding-left: 10px;
+            border-left: 1px solid rgba(255, 255, 255, 0.5);
+            font: normal bold 12px/1 'franklin', 'nyt-franklin', sans-serif;
+            vertical-align: middle;
+        }
+
+        .vhs-video-live-label {
+            margin: 0 0 0 10px;
+            padding-left: 10px;
+            border-left: 1px solid rgba(255, 255, 255, 0.5);
+            font: normal bold 12px/1 'franklin', 'nyt-franklin', sans-serif;
+
+            .vhs-video-live-circle {
+                border-radius: 50%;
+                width: 6px;
+                height: 6px;
+                display: inline-block;
+                background: red;
+                margin: 0 7px 1px 0;
+            }
+        }
+
+        .vhs-video-title {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+            width: 100%;
+            margin-top: 10px;
+            font: italic bold 24px/23px 'cheltenham', 'nyt-cheltenham', serif;
+            line-height: 1.1;
+        }
+
+        .vhs-video-summary {
+            width: 80%;
+            font: normal normal 13px/1.2 'franklin', 'nyt-franklin', sans-serif;
+            margin-top: 10px;
+        }
+    }
+
+    .vhs-updated-homepage-poster {
+
+        display: flex;
+        justify-content: flex-start;
+
+        .vhs-poster-play-icon {
+            align-self: flex-start;
+            transform: translate(-.5px);
+            min-width: 38px;
+            left: 0px;
+
+            .vhs-play-triangle {
+
+                path {
+                    transform: translate(0.5px); // for non-retina displays
+                }
+
+            }
+        }
+
+        .vhs-poster-duration-headline-summary {
+            margin-top: 0;
+            margin-left: 10px;
+            width: 100%;
+
+            &.vhs-poster-no-headline {
+                margin-top: 1px;
+            }
+
+            .vhs-video-live-label {
+                padding-left: 0;
+                margin-left: 0;
+                border-left: none;
+                font: normal normal 14px/10px 'franklin', 'nyt-franklin', sans-serif;
+                font-weight: 700;
+            }
+
+            .vhs-video-length {
+                margin: 0;
+                border: none;
+                padding: 0;
+                font: normal normal 14px/10px 'franklin', 'nyt-franklin', sans-serif;
+                font-weight: 700;
+            }
+
+            .vhs-video-title {
+                margin-top: 6px;
+                font: normal normal 24px/26px 'cheltenham', 'nyt-cheltenham', serif;
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+[data-player] .vhs-xs {
+
+    .vhs-media-action-overlay.vhs-updated-homepage-poster.vhs-360-poster {
+        .vhs-poster-duration-headline-summary {
+            max-width: 72%;
+        }
+    }
+
+}
+
+[data-player] .nytd-player-container:hover .vhs-media-action-overlay.vhs-homepage-poster {
+
+    .vhs-poster-play-icon {
+        .vhs-play-circle {
+            opacity: 1;
+        }
+
+        .vhs-play-triangle {
+            transform: scale(0.75);
+            -webkit-transform: scale(0.75);
+            -ms-transform: scale(0.75);
+        }
+    }
+}
+
+[data-player] .nytd-player-container:hover .vhs-media-action-overlay.vhs-homepage-poster.vhs-updated-homepage-poster {
+    .vhs-play-triangle {
+        transform: scale(0.36);
+        -webkit-transform: scale(0.36);
+        -ms-transform: scale(0.36);
+    }
+}
+
+[data-player] .vhs-mobile-poster.vhs-360-poster .vhs-metadata-container {
+    width: calc(100% - 40px); // room for 360 orientation icon
+}
