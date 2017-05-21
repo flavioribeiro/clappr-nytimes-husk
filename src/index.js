@@ -7,17 +7,15 @@ import NYTPoster from './poster'
 
 export default class VHS {
   static player(options) {
+    let plugins = [NYTSpinner, NYTPoster]
     getInfo(options.id).then(info => {
-      let player = new Clappr.Player({
+      this.playerInstance = new Clappr.Player({
         parentId: '#' + options.container,
         width: "670px",
         height: "377px",
         source: getSource(info.renditions).url,
         poster: getPoster(info.images),
-        plugins: {
-          core: options.plugins && options.plugins.core ? options.plugins.core : [],
-          container: [NYTSpinner, NYTPoster]
-        },
+        plugins: options.plugins ? plugins.concat(options.plugins) : plugins,
         mediacontrol: {external: NYTControls}
       })
     })
