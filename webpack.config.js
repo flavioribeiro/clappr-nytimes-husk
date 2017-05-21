@@ -26,6 +26,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: outputFile,
+    libraryTarget: "umd",
+    library: "VHS",
+    umdNamedDefine: true
   },
   module: {
     rules: [

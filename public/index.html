@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Clappr Player | The New York Times</title>
+    <script src="app.js"></script>
   </head>
 	<style>
 		.container {
@@ -28,8 +29,40 @@
 					<h3>📼&nbsp;&nbsp;Clappr player</h3>
 					<h2>Default</h2>
 				</header>
-				<div class="player"></div>
-				<script src="app.js"></script>
+				<div id="video-container"></div>
+        <script type="text/javascript">
+          function queryStringToJSON() {
+            var pairs = location.search.slice(1).split('&');
+            var value;
+            var result = {};
+            for (var i = 0, len = pairs.length; i < len; i++) {
+              pair = pairs[i];
+              pair = pair.split('=');
+              value = decodeURIComponent(pair[1] || '');
+              if (value === 'true') {
+                value = true;
+              } else if (value === 'false') {
+                value = false;
+              }
+              result[pair[0]] = value;
+            }
+            return JSON.parse(JSON.stringify(result));
+          }
+
+          $(document).ready(function() {
+            var config = $.extend({
+              id: 100000002883899,
+              container: 'video-container',
+              width: '100%',
+              height: '100%',
+              type: 'player-test',
+              debug: true,
+              ads: true
+            }, queryStringToJSON());
+
+            var htmlPlayer = VHS.player(config);
+          });
+        </script>
 		</div>
 	</body>
 </html>
