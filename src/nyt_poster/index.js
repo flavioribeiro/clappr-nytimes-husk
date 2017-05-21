@@ -4,21 +4,27 @@ import posterHTML from './public/poster.html'
 
 export default class NYTPoster extends UIContainerPlugin {
   get name() { return 'poster' }
+  get events() {
+    return {
+      'click .nytd-player-poster': 'onClick'
+    }
+  }
 
   constructor(container) {
     super(container)
     this.render()
   }
 
+  onClick() {
+    this.$el.hide()
+  }
+
   get template() {
     return template(posterHTML)({
-      mode: "homepage",
+      mode: "duration",
+      data: {duration: "2:41"},
       useUpdatedHomepageCover: false,
-      use360Cover: false,
-      data: {
-        headline: "Testing Clappr",
-      },
-      isLive: false
+      use360Cover: false
     })
   }
 
