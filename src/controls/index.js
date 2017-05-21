@@ -59,6 +59,11 @@ export default class NYTControls extends MediaControl {
     })
   }
 
+  updateProgressBar(progress) {
+    const loadedEnd = progress.current / progress.total * 100
+    this.$seekBarLoaded.css({ width: `${loadedEnd}%` })
+  }
+
   createCachedElements() {
     this.$layer = this.$el.find('.controls')
     this.$duration = this.$layer.find('.controls-duration')
