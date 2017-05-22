@@ -11,7 +11,6 @@ if (process.env.npm_lifecycle_event === 'dist') {
   plugins.push(new webpack.optimize.UglifyJsPlugin({
     compress: {warnings: false},
     output: {comments: false},
-    mangle: true,
     comments: false
   }))
 } else {
@@ -35,7 +34,7 @@ module.exports = {
     rules: [
       {test: /\.js$/, loader: 'babel-loader', include: [path.resolve(__dirname, 'src')], options: { presets: ['es2015']}},
       {test: /\.scss$/, loaders: ['css-loader', 'sass-loader'], include: path.resolve(__dirname, 'src')},
-      {test: /\.html/, loader: 'html-loader', options: { minimize: true }},
+      {test: /\.html/, loader: 'html-loader', options: { minimize: true, collapseWhitespace: true }},
       {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'}
     ],
   },

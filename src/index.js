@@ -4,10 +4,11 @@ import fetch from 'unfetch'
 import NYTSpinner from './spinner'
 import NYTControls from './controls'
 import NYTPoster from './poster'
+import NYTTimecodePopup from './timecode-popup'
 
 export default class VHS {
   static player(options) {
-    let plugins = [NYTSpinner, NYTPoster]
+    let plugins = [NYTSpinner, NYTPoster, NYTTimecodePopup]
     getInfo(options.id).then(info => {
       this.playerInstance = new Clappr.Player({
         parentId: '#' + options.container,
